@@ -1,0 +1,62 @@
+
+
+------------------Those are usefull tips to play with a mele 2000--------------
+
+#
+# USE A GOOD SERIAL CABLE!!!!!!!!! Most prolific usb/serial boards from ebay won't work.
+# I use a FTDI based one at 3.3V!!!! (5V cables won't work)
+
+ screen /dev/ttyUSB0 115200,ixoff,cs8 
+ 
+
+#
+# Kernel command line for Ubuntu on SDCARD:
+#
+ console=ttyS0,115200 root=/dev/mmcblk0p2 loglevel=8 panic=10 rootwait –no-log
+
+ note: It might be --no-log, I can't test it now. It's to avoid upstart errors on Ubuntu.
+
+#
+# Correct module load order:
+#
+ modprobe lcd hdmi ump disp mali mali_drm
+ /etc/event.d/rc-default 
+
+
+# hacking Cedarx
+
+  Follow Iainb on github. (Gimli used cedar for XMBC on Android but not on Linux)
+  In order to hack Cedar you need a armel compiled system instead of armhf
+  You can analize propietary files with readelf, xxd, file, ar (binutils)
+  you can also use biew, dissy, pyew and radare. (and if you've money, IDA)
+
+
+#
+# test wifi
+#
+  sudo iwconfig wlan0 mode managed
+  sudo iwconfig wlan0 essid YourNetworkNameHere key 01234567
+
+  note: if you use 3.08 androidized kernel you need to:
+	groupadd -g 3003 inet groupadd -g 3005 inetadmin
+	usermod -aG inet usermod -aG inetadmin 
+
+#
+# Play with miniand lubuntu rootfs
+#
+  sudo mount -o loop,offset=$((512*2048)) lubuntu-desktop-12.04-1-miniand.com.img mnt
+  sudo mount -o loop,offset=$((512*34816)) lubuntu-desktop-12.04-1-miniand.com.img mnt2
+
+  the rootfs will be at mnt2 and you can start playing from here.
+  
+#
+# barebones ubuntu arm rootfs
+#
+
+ wget http://cdimage.ubuntu.com/ubuntu-core/releases/12.04/release/ubuntu-core-12.04-core-armel.tar.gz
+ wget http://cdimage.ubuntu.com/ubuntu-core/releases/12.04/release/ubuntu-core-12.04-core-armhf.tar.gz
+
+#
+# Note: lubuntu and miniand stock kernels are for 1024mb RAM allwinner devices, they CRASH on mele A2000
+	but the stock rootfs with a custom kernel is usefull. You can also use mem=512M kernel parameter.
+#
