@@ -28,7 +28,7 @@
   Follow Iainb on github. (Gimli used cedar for XMBC on Android but not on Linux)
   In order to hack Cedar you need a armel compiled system instead of armhf
   You can analize propietary files with readelf, xxd, file, ar (binutils)
-  you can also use biew, dissy, pyew and radare. (and if you've money, IDA)
+  you can also use dissy, pyew and radare. (and if you've money, IDA)
 
 
 #
